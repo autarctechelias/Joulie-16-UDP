@@ -54,20 +54,20 @@ while True:
             count += 1                                                                                  # Increment Message counter
             now = time.strftime("%d.%m.%Y-%H:%M:%S", time.localtime(time.time()))                       # Get current system time
             os.system('clear')                                                                          # Clear terminal
-            print "MSG No.: ", count
-            print "BMS No.: ", data.split(",")[1]
+            print("MSG No.: ", count)
+            print("BMS No.: ", data.split(",")[1])
             f = open("BMS"+data.split(",")[1]+".csv", "a+")                                                    # Open/create Logfile for each BMS
             f.write(str(now)+','+data+'\r\n')                                                           # Write complete message to logfile
             f.close()                                                                                   # Close the logfile
             if data.split(",")[1] not in BMS_LIST:                                                      # Check if current message is from a new BMS
                 BMS_LIST.append(data.split(",")[1])
                 #sock.sendto(data.split(",")[1]+",0,1,TRUE,"+crc16(data.split(",")[1]+",0,1,TRUE,"))     # Tell the new BMS to turn on the output Relay. Only when no master is in the system
-            print "Found BMS: ", BMS_LIST
+            print("Found BMS: ", BMS_LIST)
             for i in range(1,17):                                                                     # Print all cell voltages
-                print "Cell ",i,": ", data.split(",")[i+2], "V"
-            print "Block Voltage: ", data.split(",")[-8], "V"                                           # Print current block voltage
-            print "SOC: ", data.split(",")[-6], "%"
-            print "Balancer Mode: ", data.split(",")[-5]
-            print "Relay Active: ", data.split(",")[-2]
-            print "CRC Valid: ", int(data.split(",")[-1], 16) == crc16(data[:-4])                       # Show if CRC's match
-            print ""                                                                                    # Empty line for cleanliness
+                print("Cell ",i,": ", data.split(",")[i+2], "V")
+            print("Block Voltage: ", data.split(",")[-8], "V")                                          # Print current block voltage
+            print("SOC: ", data.split(",")[-6], "%")
+            print("Balancer Mode: ", data.split(",")[-5])
+            print("Relay Active: ", data.split(",")[-2])
+            print("CRC Valid: ", int(data.split(",")[-1], 16) == crc16(data[:-4]))                       # Show if CRC's match
+            print("")                                                                                    # Empty line for cleanliness
